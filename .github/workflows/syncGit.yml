@@ -7,6 +7,10 @@ jobs:
   repo-sync:
     env:
       PAT: ${{ secrets.PAT }} #此处PAT需要申请，教程详见：https://www.jianshu.com/p/bb82b3ad1d11,需要repo和workflow权限
+      # Optional merge arguments
+      MERGE_ARGS: ""
+      # Optional push arguments
+      PUSH_ARGS: ""
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     steps:
@@ -14,10 +18,12 @@ jobs:
         with:
           persist-credentials: false
       - name: sync zero205-scripts
-        uses: repo-sync/github-sync@v2
+        uses: dabreadman/sync-upstream-repo@v1.0.0.b
         if: env.PAT
         with:
-          source_repo: "https://github.com/zero205/JD_tencent_scf.git"
-          source_branch: "scf"
-          destination_branch: "main"
-          github_token: ${{ secrets.PAT }}
+          upstream_repo: "https://github.com/zero205/JD_tencent_scf.git"
+          upstream_branch: "main"
+          downstream_branch: "main"
+          token: ${{ secrets.PAT }}
+          merge_args: ${{ env.MERGE_ARGS }}
+          push_args: ${{ env.PUSH_ARGS }}
