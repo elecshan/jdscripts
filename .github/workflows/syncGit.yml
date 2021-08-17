@@ -18,12 +18,10 @@ jobs:
         with:
           persist-credentials: false
       - name: sync zero205-scripts
-        uses: dabreadman/sync-upstream-repo@v1.0.0.b
+        uses: denis-tingajkin/sync-files@main
         if: env.PAT
         with:
-          upstream_repo: "https://github.com/zero205/JD_tencent_scf.git"
-          upstream_branch: "main"
-          downstream_branch: "main"
-          token: ${{ secrets.PAT }}
-          merge_args: ${{ env.MERGE_ARGS }}
-          push_args: ${{ env.PUSH_ARGS }}
+          git-author-email: 'xgs951230@163.com'
+          git-author-name: 'elecshan'
+          src-repository: zero205/JD_tencent_scf
+          exclude-files: '.github/workflows/syncGit.yml'
